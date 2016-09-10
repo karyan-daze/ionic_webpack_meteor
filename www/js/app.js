@@ -5,13 +5,15 @@ import 'meteor-client-side';
 import {Mongo} from 'meteor/mongo';
 import router       from './app.router';
 import ProfileModule from './components/profile';
+import RegisteModule from './components/register';
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', [
     'ionic',
-    ProfileModule.name
+    ProfileModule.name,
+    RegisteModule.name
 ])
 
 .run(function($ionicPlatform) {
@@ -30,5 +32,8 @@ angular.module('starter', [
       StatusBar.styleDefault();
     }
   });
+})
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position("bottom");
 })
 .config(router);

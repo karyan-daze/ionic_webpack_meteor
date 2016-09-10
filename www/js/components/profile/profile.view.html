@@ -3,8 +3,11 @@
         Profile
     </ion-nav-title>
     <ion-content>
-      <li ng-repeat="p in profile.profile"
-        <h1>This is profile page</h1>
-        Username: {{p.userName}}
+      <h1>This is profile page</h1>
+      <ul>
+        <li ng-repeat="p in profile.profile">
+            Username: {{p.userName}}
+        </li>
+      </ul>
     </ion-content>
 </ion-view>

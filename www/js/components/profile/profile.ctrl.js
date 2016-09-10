@@ -6,9 +6,7 @@ class ProfileCtrl {
     $reactive(this).attach($scope);
 
     this.helpers({
-      profile() {
-        return Profiles.find({});
-      }
+      profile: () => Profiles.find({})
     });
   }
 }

@@ -16,7 +16,6 @@ function AppRouter($stateProvider, $urlRouterProvider) {
             }
         }
     });
-    
     $urlRouterProvider.otherwise('/app/home');
 }
 
