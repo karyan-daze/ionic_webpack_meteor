@@ -6,7 +6,7 @@ import template from './register.view.html';
 const name = 'register';
 
 export default angular.module(name, [
-  angularMeteor, 'angular-meteor.auth'
+  angularMeteor
 ])
 .config(routes)
 .component(name, {

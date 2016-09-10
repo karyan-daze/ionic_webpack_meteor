@@ -2,6 +2,9 @@
 import 'ionic.app.scss';
 
 import 'meteor-client-side';
+import 'accounts-base-client-side';
+import 'accounts-password-client-side';
+
 import {Mongo} from 'meteor/mongo';
 import router       from './app.router';
 import ProfileModule from './components/profile';

@@ -6,6 +6,8 @@
     "start": "webpack-dev-server --hot --inline --colors --content-base www/"
   },
   "dependencies": {
+    "accounts-base-client-side": "^0.1.1",
+    "accounts-password-client-side": "^0.3.2",
     "angular-meteor": "^1.3.11",
     "extract-text-webpack-plugin": "^1.0.1",
     "gulp": "^3.5.6",
