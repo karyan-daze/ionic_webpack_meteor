@@ -16,5 +16,27 @@
       <button class="button button-full button-positive" ng-click="register.createUser()">
         Register
       </button>
+
+      <a class="facebook-sign-in button button-block" ng-click="register.facebookSignIn()">Login with Facebook</a>
+      <div class="card">
+        <div class="item item-divider">
+          Register info
+        </div>
+        <div class="item item-text-wrap">
+          registration process :
+            <span ng-if="register.userCreateSuccess == true">
+              Success
+            </span>
+            <span ng-if="register.userCreateSuccess == false">
+              Fail
+            </span>
+            <span ng-if="register.userCreateSuccess == -1">
+              Click on register
+            </span>
+            <span ng-if="register.userCreateSuccess == -2">
+              Fill the form before sending
+            </span>
+        </div>
+      </div>
     </ion-content>
 </ion-view>

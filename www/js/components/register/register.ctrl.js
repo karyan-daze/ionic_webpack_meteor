@@ -1,27 +1,51 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 
-console.log("Meteor :", Meteor);
-console.log("Accounts :", Accounts);
-
-//console.log("Accounts :", Accounts);
-
-
-
 export default class RegisterCtrl {
-  constructor() {
+  constructor($scope, $reactive) {
     'ngInject';
+
+    $reactive(this).attach($scope);
     this.email="";
     this.password="";
+    this.userCreateSuccess = -1;
   }
   createUser() {
     if(this.email && this.password) {
       let res = Accounts.createUser({
         email: this.email,
         password: this.password
-      });
+      }, this.$bindToContext((err)=> {
+        if(!err)
+          this.userCreateSuccess = true;
+        else {
+          console.log("err", err);
+          this.userCreateSuccess = false;
+        }
+      }));
     } else {
+      this.userCreateSuccess = -2;
       console.log("FAIL");
     }
   };
+  facebookSignIn() {
+    console.log("clicked");
+    Accounts.loginWithFacebook({loginStyle: "redirect"});
+    /*CordovaFacebook.login({
+      permissions:['user_events'],
+        onSuccess: function(result) {
+          if(result.declined.length > 0) {
+            // Do something
+            console.log("User has declined something");
+          }
+          console.log("success :",result);
+        },
+        onFailure: function(result) {
+          if(result.cancelled) {
+            console.log("user canceled the login");
+          }
+          else if("facebook login, Error :", result.errorLocalized);
+        }
+    });*/
+  }
 };

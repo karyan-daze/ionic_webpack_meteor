@@ -1,6 +1,6 @@
 import {Profiles} from 'api/collections';
 
-class ProfileCtrl {
+export default class ProfileCtrl {
   constructor($scope, $reactive) {
     'ngInject';
     $reactive(this).attach($scope);
@@ -10,5 +10,3 @@ class ProfileCtrl {
     });
   }
 }
-
-export default ProfileCtrl;
