@@ -1,5 +1,6 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
+import {fbLogin} from 'meteorCLient/facebookLogin';
 
 export default class RegisterCtrl {
   constructor($scope, $reactive) {
@@ -28,9 +29,27 @@ export default class RegisterCtrl {
       console.log("FAIL");
     }
   };
+  logout() {
+    Meteor.logout(() => {
+      this.userCreateSuccess = -1;
+      console.log("user is Logged out");
+    });
+  };
   facebookSignIn() {
     console.log("clicked");
-    Accounts.loginWithFacebook({loginStyle: "redirect"});
+    console.log("user :", Meteor.user());
+    console.log("fbLogin ?", fbLogin);
+
+    let something  = fbLogin();
+    /*Meteor.call("fbLogin", function(error, result){
+      if(error){
+        console.log("error", error);
+      }
+      if(result){
+         console.log("success :", result);
+      }
+    });*/
+    //Accounts.loginWithFacebook({loginStyle: "redirect"});
     /*CordovaFacebook.login({
       permissions:['user_events'],
         onSuccess: function(result) {

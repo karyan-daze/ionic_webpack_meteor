@@ -83,7 +83,8 @@ module.exports = {
         // this will allow you to require('somejsfile') with out the .js extension
         extensions: ['', '.js'],
         alias: {
-          api: __dirname + '/api/server'
+          api: __dirname + '/api/server',
+          meteorCLient: __dirname + '/api/client/functions'
         }
     }
 };

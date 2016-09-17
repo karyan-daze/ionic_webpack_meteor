@@ -9,7 +9,7 @@ Meteor.startup(() => {
 
   // pass data in setting
   ServiceConfiguration.configurations.insert({
-    service "facebook",
+    service: "facebook",
     appId: "302618933427575",
     secret: "70eba441307a4297386cbdaf47bc7b03",
     loginStyle: "redirect"

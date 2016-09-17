@@ -9784,7 +9784,7 @@
 	    key: 'facebookSignIn',
 	    value: function facebookSignIn() {
 	      console.log("clicked");
-	
+	      //Accounts.loginWithFacebook({loginStyle: "redirect"});
 	      CordovaFacebook.login({
 	        permissions: ['user_events'],
 	        onSuccess: function onSuccess(result) {
