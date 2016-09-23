@@ -74,7 +74,7 @@
 	// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 	// the 2nd parameter is an array of 'requires'
 	// Ionic Starter App
-	angular.module('starter', ['ionic', _profile2.default.name, _register2.default.name]).run(function ($ionicPlatform) {
+	angular.module('starter', ['ionic', 'ngCordova', _profile2.default.name, _register2.default.name]).run(function ($ionicPlatform) {
 	  $ionicPlatform.ready(function () {
 	    if (window.cordova && window.cordova.plugins.Keyboard) {
 	      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -90,8 +90,11 @@
 	      StatusBar.styleDefault();
 	    }
 	  });
-	}).config(function ($ionicConfigProvider) {
+	}).config(function ($ionicConfigProvider, $cordovaFacebookProvider) {
 	  $ionicConfigProvider.tabs.position("bottom");
+	
+	  var appId = 302618933427575;
+	  $cordovaFacebookProvider.browserInit(appId);
 	}).config(_app2.default);
 
 /***/ },
@@ -9704,7 +9707,7 @@
 	
 	var _register2 = _interopRequireDefault(_register);
 	
-	var _register3 = __webpack_require__(57);
+	var _register3 = __webpack_require__(58);
 	
 	var _register4 = _interopRequireDefault(_register3);
 	
@@ -9712,11 +9715,11 @@
 	
 	var _angularMeteor2 = _interopRequireDefault(_angularMeteor);
 	
-	var _angularMeteorAuth = __webpack_require__(58);
+	var _angularMeteorAuth = __webpack_require__(59);
 	
 	var _angularMeteorAuth2 = _interopRequireDefault(_angularMeteorAuth);
 	
-	var _registerView = __webpack_require__(59);
+	var _registerView = __webpack_require__(60);
 	
 	var _registerView2 = _interopRequireDefault(_registerView);
 	
@@ -9745,6 +9748,8 @@
 	var _accountsBase = __webpack_require__(55);
 	
 	var _meteor = __webpack_require__(56);
+	
+	var _facebookLogin = __webpack_require__(57);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -9781,25 +9786,48 @@
 	      }
 	    }
 	  }, {
+	    key: 'logout',
+	    value: function logout() {
+	      var _this2 = this;
+	
+	      _meteor.Meteor.logout(function () {
+	        _this2.userCreateSuccess = -1;
+	        console.log("user is Logged out");
+	      });
+	    }
+	  }, {
 	    key: 'facebookSignIn',
 	    value: function facebookSignIn() {
 	      console.log("clicked");
-	      //Accounts.loginWithFacebook({loginStyle: "redirect"});
-	      CordovaFacebook.login({
-	        permissions: ['user_events'],
-	        onSuccess: function onSuccess(result) {
-	          if (result.declined.length > 0) {
-	            // Do something
-	            console.log("User has declined something");
-	          }
-	          console.log("success :", result);
-	        },
-	        onFailure: function onFailure(result) {
-	          if (result.cancelled) {
-	            console.log("user canceled the login");
-	          } else if ("facebook login, Error :", result.errorLocalized) ;
+	      console.log("user :", _meteor.Meteor.user());
+	      console.log("fbLogin ?", _facebookLogin.fbLogin);
+	
+	      var something = (0, _facebookLogin.fbLogin)();
+	      /*Meteor.call("fbLogin", function(error, result){
+	        if(error){
+	          console.log("error", error);
 	        }
-	      });
+	        if(result){
+	           console.log("success :", result);
+	        }
+	      });*/
+	      //Accounts.loginWithFacebook({loginStyle: "redirect"});
+	      /*CordovaFacebook.login({
+	        permissions:['user_events'],
+	          onSuccess: function(result) {
+	            if(result.declined.length > 0) {
+	              // Do something
+	              console.log("User has declined something");
+	            }
+	            console.log("success :",result);
+	          },
+	          onFailure: function(result) {
+	            if(result.cancelled) {
+	              console.log("user canceled the login");
+	            }
+	            else if("facebook login, Error :", result.errorLocalized);
+	          }
+	      });*/
 	    }
 	  }]);
 	
@@ -9823,6 +9851,29 @@
 
 /***/ },
 /* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _meteor = __webpack_require__(56);
+	
+	var _accountsBase = __webpack_require__(55);
+	
+	exports.default = {
+	  facebook: {
+	    login: function login() {
+	      console.log("Accounts fb", _accountsBase.Accounts.loginWithFacebook);
+	      return _accountsBase.Accounts.loginWithFacebook;
+	    }
+	  }
+	};
+
+/***/ },
+/* 58 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9845,7 +9896,7 @@
 	;
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*! angular-meteor-auth v1.0.3 */
@@ -10061,10 +10112,10 @@
 	;
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports) {
 
-	module.exports = "<ion-view>\n    <ion-nav-title>\n        Register\n    </ion-nav-title>\n    <ion-content>\n      <div class=\"list\">\n        <label class=\"item item-input item-floating-label\">\n          <span class=\"input-label\">Email</span>\n          <input type=\"email\" placeholder=\"Email\" ng-model=\"register.email\">\n        </label>\n        <label class=\"item item-input item-floating-label\">\n          <span class=\"input-label\">Password</span>\n          <input type=\"password\" placeholder=\"password\" ng-model=\"register.password\">\n        </label>\n      </div>\n      <button class=\"button button-full button-positive\" ng-click=\"register.createUser()\">\n        Register\n      </button>\n\n      <a class=\"facebook-sign-in button button-block\" ng-click=\"register.facebookSignIn()\">Login with Facebook</a>\n      <div class=\"card\">\n        <div class=\"item item-divider\">\n          Register info\n        </div>\n        <div class=\"item item-text-wrap\">\n          registration process :\n            <span ng-if=\"register.userCreateSuccess == true\">\n              Success\n            </span>\n            <span ng-if=\"register.userCreateSuccess == false\">\n              Fail\n            </span>\n            <span ng-if=\"register.userCreateSuccess == -1\">\n              Click on register\n            </span>\n            <span ng-if=\"register.userCreateSuccess == -2\">\n              Fill the form before sending\n            </span>\n        </div>\n      </div>\n    </ion-content>\n</ion-view>\n"
+	module.exports = "<ion-view>\n    <ion-nav-title>\n        Register\n    </ion-nav-title>\n    <ion-content>\n      <div class=\"list\">\n        <label class=\"item item-input item-floating-label\">\n          <span class=\"input-label\">Email</span>\n          <input type=\"email\" placeholder=\"Email\" ng-model=\"register.email\">\n        </label>\n        <label class=\"item item-input item-floating-label\">\n          <span class=\"input-label\">Password</span>\n          <input type=\"password\" placeholder=\"password\" ng-model=\"register.password\">\n        </label>\n      </div>\n\n\n      <div ng-if=\"register.userCreateSuccess != true\">\n        <button class=\"button button-full button-positive\" ng-click=\"register.createUser()\">\n          Register\n        </button>\n        <a class=\"facebook-sign-in button button-block\" ng-click=\"register.facebookSignIn()\">Login with Facebook</a>\n      </div>\n        <button class=\"button button-full button-negative\" ng-click=\"register.logout()\">\n          Logout\n        </button>\n      <div class=\"card\">\n        <div class=\"item item-divider\">\n          Register info\n        </div>\n        <div class=\"item item-text-wrap\">\n          registration process :\n            <span ng-if=\"register.userCreateSuccess == true\">\n              Success\n            </span>\n            <span ng-if=\"register.userCreateSuccess == false\">\n              Fail\n            </span>\n            <span ng-if=\"register.userCreateSuccess == -1\">\n              Click on register\n            </span>\n            <span ng-if=\"register.userCreateSuccess == -2\">\n              Fill the form before sending\n            </span>\n        </div>\n      </div>\n    </ion-content>\n</ion-view>\n"
 
 /***/ }
 /******/ ]);

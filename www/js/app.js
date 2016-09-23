@@ -6,6 +6,7 @@ import 'accounts-base-client-side';
 import 'accounts-password-client-side';
 
 import {Mongo} from 'meteor/mongo';
+import ngCordova from 'ng-cordova';
 import router       from './app.router';
 import ProfileModule from './components/profile';
 import RegisterModule from './components/register';
@@ -15,6 +16,7 @@ import RegisterModule from './components/register';
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', [
     'ionic',
+    'ngCordova',
     ProfileModule.name,
     RegisterModule.name
 ])
@@ -38,5 +40,7 @@ angular.module('starter', [
 })
 .config(function($ionicConfigProvider) {
   $ionicConfigProvider.tabs.position("bottom");
+  let appId = 302618933427575;
+  //$cordovaFacebookProvider.browserInit(appId);
 })
 .config(router);
